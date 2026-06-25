@@ -13,11 +13,11 @@ class authcontroller extends Controller
             'email' => $request->email,
             'password' => $request->password
         ]);
-        $data = $response->json();
+        $datos = $response->json();
         session([
-            'token' => $data['token'],
-            'user' => $data['user'] 
+            'token' => $datos['token'],
+            'user' => $datos['user'] 
         ]);
-        return view('dashboard',$data);
+        return redirect()->route('dashboard');
     }
 }
