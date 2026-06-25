@@ -6,12 +6,12 @@
             
 
             <div>
-                <h1 class="text-5xl font-bold text-gray-700 tracking-tight">
+                <h1 class="text-5xl font-bold text-white tracking-tight">
                     Empleados
                 </h1>
 
                 <p class="text-gray-400 mt-2 text-lg">
-                    Organiza y administra todos tus proyectos.
+                    Administración de Empleados.
                 </p>
             </div>
 
@@ -19,7 +19,7 @@
                    text-white px-6 py-3 rounded-2xl font-medium
                    shadow-lg shadow-blue-500/20 flex items-center gap-2">
                 <span class="text-2xl">+</span>
-                Nuevo proyecto
+                Agregar Empleado
             </a>
             <a href="" class="hover:scale-110 transition"> <img class="w-6 h-6" src="https://i.postimg.cc/Qx8djyxX/papelera-de-reciclaje.png" alt="Papelera"></a>
 
@@ -48,7 +48,7 @@
                             </h2>
 
                             <p class="text-gray-500 text-sm mt-1">
-                                Proyecto personal
+                                EmpleaPro
                             </p>
                         </div>
 
@@ -65,7 +65,7 @@
 
 
                     <p class="text-gray-600 leading-relaxed text-[15px] mb-6">
-                        {{ Str::limit($dato['salario'], 140) }}
+                        {{'Salario: ' .Str::limit($dato['salario'], 140) }}
                     </p>
 
 
