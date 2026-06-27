@@ -77,20 +77,20 @@
 
                         <div class="flex gap-3">
 
-                            <a href="" class="px-4 py-2 rounded-xl
+                            <a href="{{ route('empleados.edit',$dato['id']) }}" class="px-4 py-2 rounded-xl
                                        bg-gray-100 hover:bg-gray-200
                                        text-gray-700 text-sm font-medium
                                        transition">
                                 Editar
                             </a>
 
-                            <a href="" class="px-4 py-2 rounded-xl
+                            <a href="#" class="px-4 py-2 rounded-xl
                                        bg-blue-600 hover:bg-blue-700
                                        text-white text-sm font-medium
                                        transition">
                                 Ver
                             </a>
-                            <form method="POST" action="" >
+                            <form method="POST" action="{{route('empleados.destroy', $dato['id']) }}" >
                                 @csrf
                                 @method('DELETE')
                                 <button class="px-4 py-2 rounded-xl

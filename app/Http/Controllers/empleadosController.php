@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use function Pest\Laravel\withToken;
 
 class empleadosController extends Controller
 {
@@ -36,7 +37,7 @@ class empleadosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
     }
@@ -44,9 +45,10 @@ class empleadosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
         //
+        return view('empleados.edit');
     }
 
     /**
@@ -60,8 +62,11 @@ class empleadosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
+        $valor = (int) $id;
+        $response =Http::withToken(session('token'))->delete(env('API_URL')."/empleados/{$id}");
+         return redirect()->route('empleados.index');
     }
 }

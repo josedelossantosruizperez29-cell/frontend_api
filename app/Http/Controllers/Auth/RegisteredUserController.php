@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -30,22 +31,28 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+       $response = Http::post(env('API_URL').'/register',[
+        'name'=> $request->name,
+        'email'=>  $request->email,
+        'password'=> $request->password
+
+       ]);
+       if (!$response->successful()) {
+        return back()->withErrors([
+            'email'=>'error usuario ya existe'
+
         ]);
+        
+       }
+       $datos = $response->json();
+       session([
+        'token'=>$datos['token'],
+        'user'=> $datos['user']
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+       ]);
 
-        event(new Registered($user));
+        $request->session()->regenerate();
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('dashboard');
     }
 }
