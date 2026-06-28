@@ -45,10 +45,16 @@ class empleadosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit($id)
     {
         //
-        return view('empleados.edit');
+    }
+
+
+    public function detalle_empleado($id){
+       $response =Http::withToken(session('token'))->get(env('API_URL')."/detalle_empleado/{$id}");
+        $datos = $response->json();
+        return view('empleados.detalle',compact('datos'));
     }
 
     /**

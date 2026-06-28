@@ -9,16 +9,16 @@
             <div class="flex items-center gap-6">
 
                 <div class="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-4xl font-bold">
-                    JP
+                  {{strtoupper(substr($datos['empleado'], 0, 2))}}
                 </div>
 
                 <div>
                     <h1 class="text-4xl font-bold">
-                        Juan Pérez Gómez
+                       {{$datos['empleado'] }}
                     </h1>
 
                     <p class="text-blue-100 text-lg mt-2">
-                        Desarrollador Full Stack
+                        {{ 'cargo: '.$datos['cargo'] }}
                     </p>
                 </div>
 
@@ -38,28 +38,28 @@
                 <div class="bg-slate-50 rounded-xl p-5 border">
                     <p class="text-sm text-gray-500">Nombre Completo</p>
                     <h3 class="text-xl font-semibold mt-1">
-                        Juan Pérez Gómez
+                        {{ $datos['empleado'] }}
                     </h3>
                 </div>
 
                 <div class="bg-slate-50 rounded-xl p-5 border">
                     <p class="text-sm text-gray-500">Cargo</p>
                     <h3 class="text-xl font-semibold mt-1">
-                        Desarrollador Full Stack
+                        {{$datos['cargo']}}
                     </h3>
                 </div>
 
                 <div class="bg-slate-50 rounded-xl p-5 border">
                     <p class="text-sm text-gray-500">Salario</p>
                     <h3 class="text-2xl font-bold text-green-600">
-                        $4.500.000
+                        {{ '$'.$datos['salario'] }}
                     </h3>
                 </div>
 
                 <div class="bg-slate-50 rounded-xl p-5 border">
-                    <p class="text-sm text-gray-500">Área</p>
+                    <p class="text-sm text-gray-500">Funciones Totales</p>
                     <h3 class="text-xl font-semibold">
-                        Tecnología
+                        {{ count($datos['funciones']) }}
                     </h3>
                 </div>
 
@@ -75,16 +75,9 @@
                 <div class="bg-slate-50 rounded-xl border p-6">
 
                     <ul class="space-y-3 text-gray-700">
-
-                        <li>✅ Desarrollar nuevas funcionalidades del sistema.</li>
-
-                        <li>✅ Corregir errores reportados por los usuarios.</li>
-
-                        <li>✅ Mantener y optimizar la base de datos.</li>
-
-                        <li>✅ Participar en reuniones de planificación.</li>
-
-                        <li>✅ Documentar el código y los procesos.</li>
+                        @foreach ($datos['funciones'] as $funcion )
+                              <li>✅ {{$funcion}}</li>
+                        @endforeach
 
                     </ul>
 
@@ -95,7 +88,7 @@
             <!-- Botones -->
             <div class="mt-10 flex justify-end gap-4">
 
-                <a href="#"
+                <a href="{{ route('empleados.index') }}"
                    class="px-6 py-3 rounded-xl bg-gray-200 hover:bg-gray-300 font-medium">
                     Volver
                 </a>
