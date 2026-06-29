@@ -23,7 +23,20 @@ class empleadosController extends Controller
      */
     public function create()
     {
-        //
+        $response = Http::withToken(session('token'))->get(env('API_URL').'/cargos');
+        $datos = $response->json();
+        $todosLosCargos=$datos['data'];
+        $ultima_pagina=$datos['last_page'];
+        for ($pagina=2; $pagina<=$ultima_pagina ; $pagina++) { 
+            $responsePage = Http::withToken(session('token'))->get(env('API_URL')."/cargos?page=$pagina");
+            $datosPagina=$responsePage->json();
+            $todosLosCargos=array_merge(
+                $todosLosCargos,
+                $datosPagina['data']
+            );
+            
+        }
+        return view('Empleados.crear', compact('todosLosCargos'));
     }
 
     /**
@@ -32,6 +45,18 @@ class empleadosController extends Controller
     public function store(Request $request)
     {
         //
+        $response = Http::withToken(session('token'))->post(env('API_URL').'/empleados',[
+            'nombre'=>$request->nombre,
+            'apellido'=>$request->apellido,
+            'fecha_nacimiento'=>'2000-10-20',
+            'fecha_de_ingreso'=>now()->format('Y-m-d'),
+            'salario'=>$request->salario,
+            'estado'=>"activo",
+            'id_cargo'=>$request->cargo
+
+        ]);
+
+        return redirect()->route('empleados.index');
     }
 
     /**

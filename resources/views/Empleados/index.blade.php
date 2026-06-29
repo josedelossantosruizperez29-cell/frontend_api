@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <a href="" class="relative left-[270px] bg-blue-600 hover:bg-blue-700 transition-all duration-300
+            <a href="{{ route('empleados.create') }}" class="relative left-[270px] bg-blue-600 hover:bg-blue-700 transition-all duration-300
                    text-white px-6 py-3 rounded-2xl font-medium
                    shadow-lg shadow-blue-500/20 flex items-center gap-2">
                 <span class="text-2xl">+</span>

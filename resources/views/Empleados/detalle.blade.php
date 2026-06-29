@@ -9,7 +9,7 @@
             <div class="flex items-center gap-6">
 
                 <div class="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-4xl font-bold">
-                  {{strtoupper(substr($datos['empleado'], 0, 2))}}
+                     {{strtoupper(substr($datos['empleado'], 0, 2))}}
                 </div>
 
                 <div>
