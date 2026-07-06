@@ -19,6 +19,9 @@
                     <x-nav-link :href="route('empleados.index')" :active="request()->routeIs('empleados.index')">
                         {{ __('Lista de Empleados') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('cargos.index')" :active="request()->routeIs('cargos.index')">
+                        {{ __('Lista de cargos') }}
+                    </x-nav-link>
                 </div>
             </div>
 
