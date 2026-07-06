@@ -3,7 +3,7 @@
 
         {{-- HEADER --}}
         <div class="flex items-center justify-between mb-10">
-            
+
 
             <div>
                 <h1 class="text-5xl font-bold text-white tracking-tight">
@@ -21,7 +21,8 @@
                 <span class="text-2xl">+</span>
                 Agregar Empleado
             </a>
-            <a href="" class="hover:scale-110 transition"> <img class="w-6 h-6" src="https://i.postimg.cc/Qx8djyxX/papelera-de-reciclaje.png" alt="Papelera"></a>
+            <a href="" class="hover:scale-110 transition"> <img class="w-6 h-6"
+                    src="https://i.postimg.cc/Qx8djyxX/papelera-de-reciclaje.png" alt="Papelera"></a>
 
         </div>
 
@@ -31,13 +32,13 @@
             @forelse($datos as $dato)
 
                 <article class="bg-white/95 backdrop-blur-sm
-                           border border-gray-200
-                           rounded-3xl
-                           p-7
-                           shadow-lg
-                           hover:shadow-2xl
-                           hover:-translate-y-1
-                           transition-all duration-300">
+                               border border-gray-200
+                               rounded-3xl
+                               p-7
+                               shadow-lg
+                               hover:shadow-2xl
+                               hover:-translate-y-1
+                               transition-all duration-300">
 
 
                     <div class="flex items-start justify-between mb-5">
@@ -53,7 +54,7 @@
                         </div>
 
                         <div class="w-12 h-12 rounded-2xl bg-blue-100 
-                                    flex items-center justify-center">
+                                        flex items-center justify-center">
 
                             <span class="text-blue-600 text-xl font-bold">
                                 {{ strtoupper(substr($dato['nombre'], 0, 1)) }}
@@ -65,7 +66,7 @@
 
 
                     <p class="text-gray-600 leading-relaxed text-[15px] mb-6">
-                        {{'Salario: ' .Str::limit($dato['salario'], 140) }}
+                        {{'Salario: ' . Str::limit($dato['salario'], 140) }}
                     </p>
 
 
@@ -77,26 +78,26 @@
 
                         <div class="flex gap-3">
 
-                            <a href="#" class="px-4 py-2 rounded-xl
-                                       bg-gray-100 hover:bg-gray-200
-                                       text-gray-700 text-sm font-medium
-                                       transition">
+                            <a href="{{ route('empleados.edit', $dato['id']) }}" class="px-4 py-2 rounded-xl
+                                           bg-gray-100 hover:bg-gray-200
+                                           text-gray-700 text-sm font-medium
+                                           transition">
                                 Editar
                             </a>
 
-                            <a href="{{ route('empleados.detalle_empleado',$dato['id']) }}" class="px-4 py-2 rounded-xl
-                                       bg-blue-600 hover:bg-blue-700
-                                       text-white text-sm font-medium
-                                       transition">
+                            <a href="{{ route('empleados.detalle_empleado', $dato['id']) }}" class="px-4 py-2 rounded-xl
+                                           bg-blue-600 hover:bg-blue-700
+                                           text-white text-sm font-medium
+                                           transition">
                                 Ver
                             </a>
-                            <form method="POST" action="{{route('empleados.destroy', $dato['id']) }}" >
+                            <form method="POST" action="{{route('empleados.destroy', $dato['id']) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="px-4 py-2 rounded-xl
-                                       bg-red-600 hover:bg-red-700
-                                       text-white text-sm font-medium
-                                       transition">
+                                           bg-red-600 hover:bg-red-700
+                                           text-white text-sm font-medium
+                                           transition">
                                     Eliminar
                                 </button>
                             </form>
@@ -127,9 +128,9 @@
                         </p>
 
                         <a href="" class="inline-flex items-center gap-2
-                                   bg-blue-600 hover:bg-blue-700
-                                   text-white px-6 py-3 rounded-2xl
-                                   font-medium transition">
+                                       bg-blue-600 hover:bg-blue-700
+                                       text-white px-6 py-3 rounded-2xl
+                                       font-medium transition">
                             + Crear proyecto
                         </a>
 
@@ -138,6 +139,30 @@
                 </div>
 
             @endforelse
+            </div>
+            <div class="flex justify-center gap-4 mt-8">
+
+                @if($paginacion['prev_page_url'])
+                    <a href="{{ route('empleados.index', ['page' => $paginacion['current_page'] - 1]) }}"
+                        class="px-4 py-2 bg-gray-300 rounded">
+                        Anterior
+                    </a>
+                @endif
+
+                <span>
+                    Página {{ $paginacion['current_page'] }}
+                    de
+                    {{ $paginacion['last_page'] }}
+                </span>
+
+                @if($paginacion['next_page_url'])
+                    <a href="{{ route('empleados.index', ['page' => $paginacion['current_page'] + 1]) }}"
+                        class="px-4 py-2 bg-blue-600 text-white rounded">
+                        Siguiente
+                    </a>
+                @endif
+
+            </div>
 
         </div>
 

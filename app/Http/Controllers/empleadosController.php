@@ -13,9 +13,13 @@ class empleadosController extends Controller
     public function index()
     {
         //
-        $response = Http::withToken(session('token'))->get(env('API_URL').'/empleados');
-        $datos = $response->json()['data'];
-        return view('Empleados.index', compact('datos'));
+        $page=request('page',1);
+        $response = Http::withToken(session('token'))->get(env('API_URL').'/empleados?page='.$page);
+        $respuesta = $response->json();
+        return view('Empleados.index', [
+            'datos'=>$respuesta['data'],
+            'paginacion'=>$respuesta
+        ]);
     }
 
     /**
@@ -24,31 +28,33 @@ class empleadosController extends Controller
     public function create()
     {
         $response = Http::withToken(session('token'))->get(env('API_URL').'/cargos');
-        $datos = $response->json();
-        $todosLosCargos=$datos['data'];
-        $ultima_pagina=$datos['last_page'];
-        for ($pagina=2; $pagina<=$ultima_pagina ; $pagina++) { 
+        $datos=$response->json();
+        $todosLosCargos=$response['data'];
+        $ultima_pagina =$response['last_page'];
+        for ($pagina=2; $pagina<$ultima_pagina; $pagina++) { 
             $responsePage = Http::withToken(session('token'))->get(env('API_URL')."/cargos?page=$pagina");
             $datosPagina=$responsePage->json();
-            $todosLosCargos=array_merge(
-                $todosLosCargos,
-                $datosPagina['data']
-            );
-            
+                  $todosLosCargos=array_merge(
+            $todosLosCargos,
+            $datosPagina['data']
+        );
+
         }
+  
         return view('Empleados.crear', compact('todosLosCargos'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         //
         $response = Http::withToken(session('token'))->post(env('API_URL').'/empleados',[
             'nombre'=>$request->nombre,
             'apellido'=>$request->apellido,
-            'fecha_nacimiento'=>'2000-10-20',
+            'fecha_nacimiento'=>$request->fecha,
             'fecha_de_ingreso'=>now()->format('Y-m-d'),
             'salario'=>$request->salario,
             'estado'=>"activo",
@@ -65,6 +71,7 @@ class empleadosController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -72,7 +79,21 @@ class empleadosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $response = Http::withToken(session('token'))->get(env('API_URL').'/cargos');
+        $datos = $response->json();
+        $todosLosCargos=$datos['data'];
+        $ultima_pagina=$datos['last_page'];
+        for ($pagina=2; $pagina<=$ultima_pagina ; $pagina++) { 
+            $responsePage = Http::withToken(session('token'))->get(env('API_URL')."/cargos?page=$pagina");
+            $datosPagina=$responsePage->json();
+            $todosLosCargos=array_merge(
+                $todosLosCargos,
+                $datosPagina['data']
+            );
+        }
+        $responseem =Http::withToken(session('token'))->get(env('API_URL')."/empleados/{$id}");
+         $datos=$responseem->json();
+         return view('Empleados.edit',compact('datos','todosLosCargos'));
     }
 
 
@@ -88,6 +109,16 @@ class empleadosController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $response =Http::withToken(session('token'))->put(env('API_URL')."/empleados/{$id}",[
+            'nombre'=>$request->nombre,
+            'apellido'=>$request->apellido,
+            'salario'=>$request->salario,
+            'id_cargo'=>$request->cargo
+
+        ]);
+        return redirect()->route('empleados.index');
+        
+        
     }
 
     /**

@@ -15,7 +15,8 @@
             </div>
 
             <!-- Contenido -->
-            <form action="{{ route('empleados.store') }}" method="post">
+            <form action="{{ route('empleados.update', $datos['id']) }}" method="post">
+                @method('PUT')
                 <div class="p-8">
                     @csrf
 
@@ -28,6 +29,7 @@
                             </label>
 
                             <input name="nombre" type="text" placeholder="Ingrese el nombre"
+                                value="{{ $datos['nombre'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
 
@@ -38,6 +40,7 @@
                             </label>
 
                             <input name="apellido" type="text" placeholder="Ingrese el apellido"
+                                value="{{ $datos['apellido'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
 
@@ -47,7 +50,7 @@
                                 Salario
                             </label>
 
-                            <input name="salario" type="number" placeholder="$0"
+                            <input name="salario" type="number" placeholder="$0" value="{{ $datos['salario'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
 
@@ -60,17 +63,6 @@
                             <select name="cargo" id="cargo"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
 
-                                <option selected disabled>
-                                    Seleccione un cargo
-                                </option>
-                                @foreach ($todosLosCargos as $dato)
-                                    <option value="{{ $dato['id'] }}">
-                                        {{ $dato['nombre_cargo']}}
-
-                                    </option>
-
-                                @endforeach
-
                             </select>
                         </div>
 
@@ -81,7 +73,7 @@
                             Fecha
                         </label>
 
-                        <input name="fecha" type="date"
+                        <input name="fecha" type="date" value="{{ $datos['fecha_nacimiento'] }}"
                             class="w-full rounded-xl border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
 
@@ -108,4 +100,24 @@
     </div>
 
     </div>
+    <script>
+        //meteremos los 2 arrays para mostra en el select primero el cargo que tiene el empleado
+        const cargoDelEmpleado = '{{ $datos['id_cargo'] }}';
+        const todosLosCargos = @json($todosLosCargos);
+
+        const cargoSelect = document.getElementById('cargo');
+        for (let i = 0; i < todosLosCargos.length; i++) {
+            const cargo = todosLosCargos[i];
+            const option = document.createElement('option');
+            option.value = cargo.id;
+            option.textContent = cargo.nombre_cargo;
+            if (cargo.id == cargoDelEmpleado) {
+                option.selected = true;
+                option.name = "cargo";
+                option.style.backgroundColor = "green";
+            }
+            cargoSelect.appendChild(option);
+        }
+    </script>
+
 </x-layouts::app>
