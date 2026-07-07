@@ -27,7 +27,7 @@
                     Seleccione un cargo
                 </option>
                 @foreach ($todosLosCargos as $dato)
-                    <option value="{{ $dato['id'] }}">
+                    <option value="{{ $dato['id'] }}" {{ ($cargoFiltro == $dato['id']) ? 'selected' : ''  }}>
                         {{ $dato['nombre_cargo']}}
 
                     </option>
@@ -45,18 +45,18 @@
 
 
                 <article class="group bg-white rounded-2xl
-                                       border border-gray-100
-                                       shadow-sm
-                                       hover:shadow-2xl
-                                       hover:-translate-y-1
-                                       transition-all duration-300
-                                       overflow-hidden">
+                                           border border-gray-100
+                                           shadow-sm
+                                           hover:shadow-2xl
+                                           hover:-translate-y-1
+                                           transition-all duration-300
+                                           overflow-hidden">
 
 
                     <div class="p-6 pb-4 flex items-center gap-4 border-b border-gray-100">
 
                         <div class="w-14 h-14 shrink-0 rounded-2xl bg-blue-100
-                                            flex items-center justify-center">
+                                                flex items-center justify-center">
                             <span class="text-blue-600 text-2xl font-bold">
                                 {{ strtoupper(substr($dato['descripcion_funcion'], 0, 1)) }}
                             </span>
@@ -69,7 +69,7 @@
 
 
                             <span class="inline-block mt-1 text-xs font-semibold text-blue-600
-                                                 bg-blue-50 px-2.5 py-0.5 rounded-full">
+                                                     bg-blue-50 px-2.5 py-0.5 rounded-full">
                                 Cargo
                             </span>
                         </div>
@@ -87,16 +87,16 @@
                     <div class="px-6 pb-6 flex items-center gap-2">
 
                         <a href="{{ route('funciones.edit', $dato['id']) }}" class="flex-1 text-center px-4 py-2 rounded-xl
-                                               bg-gray-100 hover:bg-gray-200
-                                               text-gray-700 text-sm font-medium
-                                               transition">
+                                                   bg-gray-100 hover:bg-gray-200
+                                                   text-gray-700 text-sm font-medium
+                                                   transition">
                             Editar
                         </a>
 
                         <a href="{{ route('funciones.show', $dato['id']) }}" class="flex-1 text-center px-4 py-2 rounded-xl
-                                               bg-blue-600 hover:bg-blue-700
-                                               text-white text-sm font-medium
-                                               transition">
+                                                   bg-blue-600 hover:bg-blue-700
+                                                   text-white text-sm font-medium
+                                                   transition">
                             Ver
                         </a>
 
@@ -104,9 +104,9 @@
                             @csrf
                             @method('DELETE')
                             <button class="px-3 py-2 rounded-xl
-                                               bg-red-50 hover:bg-red-100
-                                               text-red-600
-                                               transition" title="Eliminar">
+                                                   bg-red-50 hover:bg-red-100
+                                                   text-red-600
+                                                   transition" title="Eliminar">
                                 eliminar
                             </button>
                         </form>
@@ -131,13 +131,13 @@
                         </h2>
 
                         <p class="text-gray-500 mb-8">
-                            Comienza creando tu primer proyecto.
+                            AGREGA UNA FUNCION
                         </p>
 
                         <a href="" class="inline-flex items-center gap-2
-                                               bg-blue-600 hover:bg-blue-700
-                                               text-white px-6 py-3 rounded-2xl
-                                               font-medium transition">
+                                                   bg-blue-600 hover:bg-blue-700
+                                                   text-white px-6 py-3 rounded-2xl
+                                                   font-medium transition">
                             + Crear proyecto
                         </a>
 
@@ -147,19 +147,20 @@
 
             @endforelse
         </div>
-        <div class="flex justify-center gap-4 mt-8">
+        @if($paginacion)
+            <div class="flex justify-center gap-4 mt-8">
 
-            @if($paginacion['prev_page_url'])
-                <a href="{{ route('funciones.index', ['page' => $paginacion['current_page'] - 1]) }}"
-                    class="px-4 py-2 bg-gray-300 rounded">
-                    Anterior
-                </a>
-            @endif
+                @if($paginacion['prev_page_url'])
+                    <a href="{{ route('funciones.index', ['page' => $paginacion['current_page'] - 1]) }}"
+                        class="px-4 py-2 bg-gray-300 rounded">
+                        Anterior
+                    </a>
+                @endif
 
-            <spanc class="text-white">
-                Página {{ $paginacion['current_page'] }}
-                de
-                {{ $paginacion['last_page'] }}
+                <span class="text-white">
+                    Página {{ $paginacion['current_page'] }}
+                    de
+                    {{ $paginacion['last_page'] }}
                 </span>
 
                 @if($paginacion['next_page_url'])
@@ -169,10 +170,22 @@
                     </a>
                 @endif
 
-        </div>
+            </div>
+        @endif
 
     </div>
 
     </div>
+
+    <script>
+        document.getElementById('cargo').addEventListener('change', function () {
+            let id = this.value;
+            if (id == "") {
+                window.location.href = "{{ route('funciones.index') }}";
+            } else {
+                window.location.href = "{{ route('funciones.index') }}?cargo=" + id;
+            }
+        });
+    </script>
 
 </x-layouts::app>
