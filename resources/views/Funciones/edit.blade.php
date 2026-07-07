@@ -6,16 +6,16 @@
             <!-- Encabezado -->
             <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
                 <h1 class="text-3xl font-bold text-white">
-                    Registrar Cargo
+                    Registrar fucnion cargo
                 </h1>
 
                 <p class="text-blue-100 mt-2">
-                    Complete la información del cargo
+                    Complete la información funcion cargo
                 </p>
             </div>
 
             <!-- Contenido -->
-            <form action="{{ route('cargos.update', $datos['id']) }}" method="post">
+            <form action="{{ route('funciones.update', $datos['id']) }}" method="post">
                 @method('PUT')
                 <div class="p-8">
                     @csrf
@@ -29,7 +29,7 @@
                             </label>
 
                             <input name="nombre" type="text" placeholder="Ingrese el nombre"
-                                value="{{ $datos['nombre_cargo'] }}"
+                                value="{{ $datos['descripcion_funcion'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
                         @error('nombre_cargo')

@@ -49,8 +49,7 @@ class CargoController extends Controller
     {
       $response = Http::withToken(session('token'))->get(env('API_URL')."/detalle_cargos/{$id}");
       
-      $datos=$response->json();
-      dd($datos);       
+      $datos=$response->json();   
       return View('cargos.detalle',compact('datos'));
 
     }

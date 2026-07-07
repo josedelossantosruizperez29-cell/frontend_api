@@ -127,18 +127,18 @@
                         </div>
 
                         <h2 class="text-3xl font-bold text-gray-700 mb-3">
-                            Actualmente no hay Cargos registrados
+                            Actualmente no hay funciones registrados
                         </h2>
 
                         <p class="text-gray-500 mb-8">
                             AGREGA UNA FUNCION
                         </p>
 
-                        <a href="" class="inline-flex items-center gap-2
+                        <a href="{{ route('funciones.create') }}" class="inline-flex items-center gap-2
                                                    bg-blue-600 hover:bg-blue-700
                                                    text-white px-6 py-3 rounded-2xl
                                                    font-medium transition">
-                            + Crear proyecto
+                            + Crear Funcion
                         </a>
 
                     </div>

@@ -28,7 +28,7 @@ class FuncionesController extends Controller
 
 
         }
-                    //le agregamos la funcionalidad al filtro de cargos
+        //le agregamos la funcionalidad al filtro de cargos
         $cargoFiltro = request('cargo');
         if ($cargoFiltro) {
             $responses = Http::withToken(session('token'))->get(env('API_URL') . "/detalle_cargos/{$cargoFiltro}");
@@ -56,7 +56,22 @@ class FuncionesController extends Controller
      */
     public function create()
     {
-        //
+        $response = Http::withToken(session('token'))->get(env('API_URL') . '/cargos');
+        $datos = $response->json();
+        $todosLosCargos = $response['data'];
+        $ultima_pagina = $response['last_page'];
+        for ($pagina = 2; $pagina < $ultima_pagina; $pagina++) {
+            $responsePage = Http::withToken(session('token'))->get(env('API_URL') . "/cargos?page=$pagina");
+            $datosPagina = $responsePage->json();
+            $todosLosCargos = array_merge(
+                $todosLosCargos,
+                $datosPagina['data']
+            );
+
+
+
+        }
+        return view('funciones.crear', compact('todosLosCargos'));
     }
 
     /**
@@ -64,7 +79,12 @@ class FuncionesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $responses = Http::withToken(session('token'))->post(env('API_URL') . '/funcionCargos', [
+            'descripcion_funcion' => $request->nombre,
+            'estado' => $request->estado,
+            'id_cargo' => $request->cargo
+        ]);
+        return redirect()->route('funciones.index');
     }
 
     /**
@@ -72,7 +92,15 @@ class FuncionesController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $response = Http::withToken(session('token'))->get(env('API_URL') . "/funcionCargos/{$id}");
+        $datos = $response->json();
+        $id_cargo = $response['id_cargo'];
+        $responses = Http::withToken(session('token'))->get(env('API_URL') . "/cargos/{$id_cargo}");
+        return view('Funciones.detalle', [
+            'datos' => $datos,
+            'cargo' => $responses->json()
+        ]);
     }
 
     /**
@@ -80,7 +108,11 @@ class FuncionesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $response = Http::withToken(session('token'))->get(env('API_URL') . "/funcionCargos/{$id}");
+        $datos = $response->json();
+        return view('Funciones.edit', [
+            'datos' => $datos
+        ]);
     }
 
     /**
@@ -88,9 +120,10 @@ class FuncionesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $responses = Http::withToken(session('token'))->put(env('API_URL') . "/funcionCargos/{$id}",[
-            'descripcion_funcion' => $request->nombre,   
-            ]);
+        $responses = Http::withToken(session('token'))->put(env('API_URL') . "/funcionCargos/{$id}", [
+            'descripcion_funcion' => $request->nombre,
+        ]);
+        return redirect()->route('funciones.index');
     }
 
     /**

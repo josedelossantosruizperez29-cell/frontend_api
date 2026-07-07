@@ -120,18 +120,18 @@
                         </div>
 
                         <h2 class="text-3xl font-bold text-gray-700 mb-3">
-                            No tienes proyectos
+                            No tienes empleados registrados
                         </h2>
 
                         <p class="text-gray-500 mb-8">
-                            Comienza creando tu primer proyecto.
+                            Comienza Registrando un nuevo empleado.
                         </p>
 
-                        <a href="" class="inline-flex items-center gap-2
+                        <a href="empleados.create" class="inline-flex items-center gap-2
                                        bg-blue-600 hover:bg-blue-700
                                        text-white px-6 py-3 rounded-2xl
                                        font-medium transition">
-                            + Crear proyecto
+                            + Crear Empleado
                         </a>
 
                     </div>

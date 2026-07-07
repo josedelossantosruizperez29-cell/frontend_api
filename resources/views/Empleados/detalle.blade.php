@@ -93,11 +93,6 @@
                     Volver
                 </a>
 
-                <a href="#"
-                   class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-lg">
-                    Editar Empleado
-                </a>
-
             </div>
 
         </div>
