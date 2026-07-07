@@ -12,12 +12,27 @@ class FuncionesController extends Controller
      */
     public function index()
     {
+        // con esto obtengo todos los cargos para que el usuario pueda filtrar funciones por cargo
+    $response = Http::withToken(session('token'))->get(env('API_URL').'/cargos');
+        $datos=$response->json();
+        $todosLosCargos=$response['data'];
+        $ultima_pagina =$response['last_page'];
+        for ($pagina=2; $pagina<$ultima_pagina; $pagina++) { 
+            $responsePage = Http::withToken(session('token'))->get(env('API_URL')."/cargos?page=$pagina");
+            $datosPagina=$responsePage->json();
+                  $todosLosCargos=array_merge(
+            $todosLosCargos,
+            $datosPagina['data']
+        );
+
+        }
         $page=request('page',1);
         $reponse = Http::withToken(session('token'))->get(env('API_URL').'/funcionCargos?page='.$page);
         $datos = $reponse->json();
         return view('Funciones.index',[
             'datos'=>$datos['data'],
-            'paginacion'=>$datos
+            'paginacion'=>$datos,
+            'todosLosCargos'=>$todosLosCargos
         ]);
     }
 
