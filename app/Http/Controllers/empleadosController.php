@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use function Laravel\Prompts\alert;
+use Illuminate\Validation\ValidationException;
 use function Pest\Laravel\withToken;
 
 class empleadosController extends Controller
@@ -61,6 +64,9 @@ class empleadosController extends Controller
             'id_cargo'=>$request->cargo
 
         ]);
+        if (!$response->successful()) {
+            throw ValidationException::withMessages($response->json('errors'));
+        }
 
         return redirect()->route('empleados.index');
     }
@@ -116,6 +122,10 @@ class empleadosController extends Controller
             'id_cargo'=>$request->cargo
 
         ]);
+
+        if (!$response->successful()) {
+            throw ValidationException::withMessages($response->json('errors'));
+        }
         return redirect()->route('empleados.index');
         
         

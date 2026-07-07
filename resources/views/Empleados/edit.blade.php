@@ -32,6 +32,11 @@
                                 value="{{ $datos['nombre'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('nombre')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Apellido -->
                         <div>
@@ -43,6 +48,11 @@
                                 value="{{ $datos['apellido'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('apellido')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Salario -->
                         <div>
@@ -53,6 +63,11 @@
                             <input name="salario" type="number" placeholder="$0" value="{{ $datos['salario'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('salario')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Cargo -->
                         <div>
@@ -76,6 +91,11 @@
                         <input name="fecha" type="date" value="{{ $datos['fecha_nacimiento'] }}"
                             class="w-full rounded-xl border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
+                    @error('fecha_nacimiento')
+                        <p class="text-red-500 text-xs mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
 
                     <!-- Funciones -->
 

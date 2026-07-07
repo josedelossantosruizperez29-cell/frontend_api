@@ -30,6 +30,11 @@
                             <input name="nombre" type="text" placeholder="Ingrese el nombre"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('nombre')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Apellido -->
                         <div>
@@ -40,6 +45,11 @@
                             <input name="apellido" type="text" placeholder="Ingrese el apellido"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('apellido')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Salario -->
                         <div>
@@ -50,6 +60,11 @@
                             <input name="salario" type="number" placeholder="$0"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('salario')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Cargo -->
                         <div>
@@ -73,17 +88,27 @@
 
                             </select>
                         </div>
+                        @error('id_cargo')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                     </div>
                     <!-- Fecha -->
                     <div>
                         <label class="block mb-2 font-semibold text-gray-700">
-                            Fecha
+                            Fecha de nacimiento
                         </label>
 
                         <input name="fecha" type="date"
                             class="w-full rounded-xl border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
+                    @error('fecha_nacimiento')
+                        <p class="text-red-500 text-xs mt-2">
+                            {{ $message }}
+                        </p>
+                    @enderror
 
                     <!-- Funciones -->
 

@@ -30,7 +30,7 @@
         <div class="p-8">
 
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">
-                Información del Empleado
+                Información del Cargo
             </h2>
 
             <div class="grid md:grid-cols-2 gap-6">

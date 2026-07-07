@@ -22,6 +22,10 @@
                     <x-nav-link :href="route('cargos.index')" :active="request()->routeIs('cargos.index')">
                         {{ __('Lista de cargos') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('cargos.index')" :active="request()->routeIs('funciones.index')">
+                        {{ __('Todas las funciones') }}
+                    </x-nav-link>
                 </div>
             </div>
 
