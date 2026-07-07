@@ -149,7 +149,7 @@
                     </a>
                 @endif
 
-                <span>
+                <spanc class="text-white">
                     Página {{ $paginacion['current_page'] }}
                     de
                     {{ $paginacion['last_page'] }}

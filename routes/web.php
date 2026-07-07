@@ -3,6 +3,7 @@
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FuncionesController;
 use App\Http\Controllers\empleadosController;
 
 Route::get('/', function () {
@@ -19,6 +20,7 @@ Route::middleware('api.auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('empleados',empleadosController::class); 
     Route::resource('/cargos',CargoController::class);
+    Route::resource('/funciones',FuncionesController::class);
     Route::get('/empleados/{id}/detalle_empleado',[empleadosController::class,'detalle_empleado'])->name('empleados.detalle_empleado');
 });
 

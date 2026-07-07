@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class FuncionesController extends Controller
 {
@@ -11,7 +12,13 @@ class FuncionesController extends Controller
      */
     public function index()
     {
-        //
+        $page=request('page',1);
+        $reponse = Http::withToken(session('token'))->get(env('API_URL').'/funcionCargos?page='.$page);
+        $datos = $reponse->json();
+        return view('Funciones.index',[
+            'datos'=>$datos['data'],
+            'paginacion'=>$datos
+        ]);
     }
 
     /**
@@ -59,6 +66,7 @@ class FuncionesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $response =Http::withToken(session('token'))->delete(env('API_URL')."/funcionCargos/{$id}");
+        return redirect()->route('funciones.index');
     }
 }
