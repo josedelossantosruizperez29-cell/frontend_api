@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CargoController extends Controller
 {
@@ -69,7 +70,15 @@ class CargoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $response = Http::withToken(session('token'))->put(env('API_URL')."/cargos/{$id}",[
+            'nombre_cargo'=>$request->nombre,
+            'descripcion'=>$request->descripcion,
+        ]);
+        if (!$response->successful()) {
+            throw ValidationException::withMessages($response->json('errors'));
+            
+        }
+        return redirect()->route('cargos.index');
     }
 
     /**

@@ -6,11 +6,11 @@
             <!-- Encabezado -->
             <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
                 <h1 class="text-3xl font-bold text-white">
-                    Registrar Empleado
+                    Registrar Cargo
                 </h1>
 
                 <p class="text-blue-100 mt-2">
-                    Complete la información del empleado.
+                    Complete la información del cargo
                 </p>
             </div>
 
@@ -32,49 +32,48 @@
                                 value="{{ $datos['nombre_cargo'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
+                        @error('nombre_cargo')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
 
                         <!-- Apellido -->
 
                         <!-- Salario -->
                         <div>
                             <label class="block mb-2 font-semibold text-gray-700">
-                                Salario
+                                Descripcion
                             </label>
 
-                            <input name="salario" type="number" placeholder="$0" value="{{ $datos['funciones'] }}"
+                            <input name="descripcion" type="text" placeholder="Ingrese la descripcion"
+                                value="{{ $datos['descripcion'] }}"
                                 class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
-
+                        @error('descripcion')
+                            <p class="text-red-500 text-xs mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
                         <!-- Cargo -->
-                        <div>
-                            <label class="block mb-2 font-semibold text-gray-700">
-                                Cargo
-                            </label>
 
-                            <select name="cargo" id="cargo"
-                                class="w-full rounded-xl border border-gray-300 px-4 py-3 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
 
-                            </select>
+                        <!-- Funciones -->
+
+                        <!-- Botones -->
+                        <div class="flex justify-end gap-4 mt-10">
+
+                            <a href="{{ route('cargos.index') }}"
+                                class="px-6 py-3 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition">
+                                Cancelar
+                            </a>
+
+                            <button type="submit"
+                                class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg transition">
+                                actualizar cargo
+                            </button>
+
                         </div>
-
-                    </div>
-
-                    <!-- Funciones -->
-
-                    <!-- Botones -->
-                    <div class="flex justify-end gap-4 mt-10">
-
-                        <a href="{{ route('cargos.index') }}"
-                            class="px-6 py-3 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition">
-                            Cancelar
-                        </a>
-
-                        <button type="submit"
-                            class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg transition">
-                            actualizar cargo
-                        </button>
-
-                    </div>
             </form>
 
         </div>
